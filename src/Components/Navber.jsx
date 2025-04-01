@@ -46,7 +46,7 @@ const Navber = () => {
                 <button className="">
                     <FaSearch className="text-xl" />
                 </button>
-                <button className="btn btn-outline btn-warning">Appointment</button>
+                <button className="btn hover:bg-[#FF3811] border-[#FF3811]">Appointment</button>
             </div>
         </div>
     );
