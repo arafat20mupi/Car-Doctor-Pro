@@ -20,7 +20,7 @@ const navItems = <>
 const Navber = () => {
 
     return (
-        <div className="navbar bg-base-100 h-24 mb-4">
+        <div className="navbar bg-base-100  mb-4">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -47,6 +47,7 @@ const Navber = () => {
                     <FaSearch className="text-xl" />
                 </button>
                 <button className="btn hover:bg-[#FF3811] border-[#FF3811]">Appointment</button>
+                <button className="btn  bg-[#FF3811]">Login</button>
             </div>
         </div>
     );

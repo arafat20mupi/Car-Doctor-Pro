@@ -1,27 +1,26 @@
 "use client";
 import { useEffect, useState } from "react";
 import ServiceCard from "./ServicesCard";
-
+import { services } from "../../lib/service";
 const Services = () => {
-    const [services, setServices] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services`)
-            .then(res => {
-                if (!res.ok) throw new Error("Failed to fetch services");
-                return res.json();
-            })
-            .then(data => {
-                setServices(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                setError(err.message);
-                setLoading(false);
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services`)
+    //         .then(res => {
+    //             if (!res.ok) throw new Error("Failed to fetch services");
+    //             return res.json();
+    //         })
+    //         .then(data => {
+    //             setServices(data);
+    //             setLoading(false);
+    //         })
+    //         .catch(err => {
+    //             setError(err.message);
+    //             setLoading(false);
+    //         });
+    // }, []);
 
     return (
         <div className="mt-4 container mx-auto">
