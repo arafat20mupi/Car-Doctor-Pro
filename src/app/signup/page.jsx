@@ -5,15 +5,36 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import SocialLogin from "@/Components/SocialLogin";
 
 const Signup = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const router = useRouter();
+    const onSubmit = async (data) => {
+        try {
+            if (!data.name || !data.email || !data.password || !data.confirmPassword) {
+                toast.error("All fields are required");
+                return;
+            }
+            if (data.password !== data.confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+            }
 
-    const onSubmit = (data) => {
-        console.log("Signup Data:", data);
-        // Perform signup logic here
+            const res = await axios.post("/api/signup", data);
+            if (res.status === 201) {
+                toast.success("Signed up successfully!");
+                router.push("/login");
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+            toast.error(error.response?.data?.error || "Failed to sign up. Please try again.");
+        }
     };
 
     return (
@@ -61,7 +82,7 @@ const Signup = () => {
                                 </label>
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    {...register("password", { 
+                                    {...register("password", {
                                         required: "Password is required",
                                         minLength: { value: 6, message: "Password must be at least 6 characters" }
                                     })}
@@ -103,13 +124,15 @@ const Signup = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <div className="form-control mt-6">
+                            <div className="form-control flex items-center justify-center mt-6">
                                 <input className="btn btn-primary" type="submit" value="Sign Up" />
                             </div>
                         </form>
                         <p className="my-4 text-center">
                             Already have an account? <Link className="text-orange-600 font-bold" href="/login">Login</Link>
                         </p>
+                        <hr />
+                        <SocialLogin/>
                     </div>
                 </div>
             </div>

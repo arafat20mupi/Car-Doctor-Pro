@@ -5,14 +5,32 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+const { signIn } = require("next-auth/react");
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-
-    const onSubmit = (data) => {
-        console.log("Login Data:", data);
-        // Perform login logic here
+    const router = useRouter();
+    const onSubmit = async (data) => {
+        try {
+            console.log("Login Data:", data);
+            const res = await signIn("credentials", {
+                redirect: false,
+                email: data.email,
+                password: data.password,
+            });
+            if (res.ok) {
+                toast.success("Logged in successfully!");
+                router.push("/");
+            } else {
+                toast.error("Failed to log in. Please check your credentials.");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            toast.error("An unexpected error occurred. Please try again.");
+        }
     };
 
     return (
