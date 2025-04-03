@@ -7,7 +7,14 @@ const ServiceCard = ({ service }) => {
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure className="p-2">
-                <Image src={img} alt={title} width={350} height={200} className="rounded-xl" />
+                <Image
+                    src={img}
+                    alt={title}
+                    width={350}
+                    height={200}
+                    className="rounded-xl"
+                    style={{ width: "auto", height: "auto" }} // Ensure aspect ratio is maintained
+                />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>

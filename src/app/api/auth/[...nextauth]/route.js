@@ -64,6 +64,26 @@ export const authOptions = {
             }
             return session;
         },
+        async signIn({ user, account }) {
+            if (account.provider === 'google' || account.provider === 'github') {
+                const { name, email, image } = user;
+                console.log(user)
+                const password = 'default_password'; // Set a default password for OAuth users
+                try {
+                    const existingUser = await User.findOne({ email });
+                    if (!existingUser) {
+                        const newUser = { name, email, image, password }; // Include the default password
+                        await User.create(newUser);
+                        return user;
+                    } else {
+                        return user;
+                    }
+                } catch (error) {
+                    console.error("Sign in error:", error.message);
+                    throw new Error(error.message);
+                }
+            }
+        }
     },
     pages: {
         signIn: "/login",

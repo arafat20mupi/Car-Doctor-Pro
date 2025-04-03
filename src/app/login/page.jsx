@@ -7,6 +7,7 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import SocialLogin from "@/Components/SocialLogin";
 const { signIn } = require("next-auth/react");
 
 const Login = () => {
@@ -89,6 +90,8 @@ const Login = () => {
                         <p className="my-4 text-center">
                             New to Car Doctors? <Link className="text-orange-600 font-bold" href="/signup">Sign Up</Link>
                         </p>
+                        <hr />
+                        <SocialLogin />
                     </div>
                 </div>
             </div>

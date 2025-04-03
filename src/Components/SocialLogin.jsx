@@ -7,10 +7,14 @@ import { FaGoogle, FaGithub } from "react-icons/fa";
 const SocialLogin = () => {
     const router = useRouter();
     const { status } = useSession();
-
-    const handleLogin =  (provider) => {
-        const res =  signIn(provider, { redirect: false });
+    console.log(status)
+    const handleLogin = (provider) => {
+        const res = signIn(provider, { redirect: false });
     };
+    if (status=== 'authenticated') {
+        toast.success("Logged in successfully!");
+        router.push("/");
+    }
 
     return (
         <div className="flex items-center justify-center space-x-4">
